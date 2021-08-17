@@ -56,6 +56,11 @@ public class QRauto : MonoBehaviour
             Debug.Log("執行Ianhsu1()");
             Ianhsu1();
         }
+        else
+        {
+            Debug.Log("執行Ianhsu()");
+            Ianhsu();
+        }
     }
 
     public void Ianhsu()

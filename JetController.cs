@@ -7,9 +7,11 @@ public class JetController : MonoBehaviour
 
     public GameObject triggerObj;
     public GameObject triggerObz;
+    public GameObject triggerObj1f;
     [SerializeField]
     private QRTrackerController trackerController;
     private QRTrackerController trackerController1;
+    private QRTrackerController trackerController1f;
     public GameObject[] tracker;
     public static Vector3 QRpose;
     public static Vector3 QRposero;
@@ -47,6 +49,14 @@ public class JetController : MonoBehaviour
                 tracker[n].GetComponent<QRTrackerController>().PositionSet += PoseFound;
                 Debug.Log(n + "," +QRpose);
             }
+            if (tracker[n].name == "Tracker3")
+            {
+                //QRpose = new Vector3(0, 0, 0);
+                //QRposero = new Vector3(0, 0, 0);
+                trackerController1f = tracker[n].GetComponent<QRTrackerController>();
+                tracker[n].GetComponent<QRTrackerController>().PositionSet += PoseFound;
+                Debug.Log(n + "," + QRpose);
+            }
         }
        
         /*trackerController = GameObject.Find("Tracker1").GetComponent<QRTrackerController>();
@@ -65,7 +75,7 @@ public class JetController : MonoBehaviour
             QRpose = pose.position;
             QRposero = pose.rotation.eulerAngles;
             text.text = (pose.position.x.ToString("#0.000") +","+pose.position.y.ToString("#0.000") +","+ pose.position.z.ToString("#0.000") );
-            text1.text = (QRpose.x.ToString("#0.000") + "," + QRpose.y.ToString("#0.000") + "," + QRpose.z.ToString("#0.000"));
+            text1.text = ("地下管線模型");
             //tryyyy.GetComponent<MeshRenderer>().material.color=Color.red;
         }
         if (trackerController1.IsTrackingActive == false)
@@ -76,15 +86,26 @@ public class JetController : MonoBehaviour
             QRpose = pose.position;
             QRposero = pose.rotation.eulerAngles;
             text.text = (pose.position.x.ToString("#0.000") + "," + pose.position.y.ToString("#0.000") + "," + pose.position.z.ToString("#0.000"));
-            text1.text = (QRpose.x.ToString("#0.000") + "," + QRpose.y.ToString("#0.000") + "," + QRpose.z.ToString("#0.000"));
+            text1.text = ("生醫給水模型");
             //tryyyy.GetComponent<MeshRenderer>().material.color = Color.blue;
         }
-        
-        
-            
-            GameObject.Find("Tracker1").SendMessage("BEResetTracking");
-            GameObject.Find("Tracker2").SendMessage("BEResetTracking");
-            Debug.Log(QRposero);
+        if (trackerController1f.IsTrackingActive == false)
+        {
+            trackerController1.IsTrackingActive = true;
+            triggerObz = GameObject.Find("triggerObj1f");
+            triggerObz.SendMessage("triggering");
+            QRpose = pose.position;
+            QRposero = pose.rotation.eulerAngles;
+            text.text = (pose.position.x.ToString("#0.000") + "," + pose.position.y.ToString("#0.000") + "," + pose.position.z.ToString("#0.000"));
+            text1.text = ("生醫1F機電模型");
+            //tryyyy.GetComponent<MeshRenderer>().material.color = Color.blue;
+        }
+
+
+        GameObject.Find("Tracker1").SendMessage("BEResetTracking");
+        GameObject.Find("Tracker2").SendMessage("BEResetTracking");
+        GameObject.Find("Tracker3").SendMessage("BEResetTracking");
+        Debug.Log(QRposero);
             GameObject PointA = Instantiate(GameObject.Find("po3").gameObject);
             GameObject PointC = Instantiate(GameObject.Find("po3").gameObject);
             PointA.transform.position = QRpose + new Vector3(0.05f, 0.05f, 0f);
