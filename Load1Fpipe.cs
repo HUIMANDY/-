@@ -29,7 +29,7 @@ public class Load1Fpipe : MonoBehaviour
     {
         //Status.text = "已點擊";
         yield return new WaitForSeconds(2f);
-        var uwr = UnityWebRequestAssetBundle.GetAssetBundle("https://firebasestorage.googleapis.com/v0/b/pipe-e7909.appspot.com/o/1fpipe?alt=media&token=efdcf56e-7206-4b93-a79c-ea0a8289df60");
+        var uwr = UnityWebRequestAssetBundle.GetAssetBundle("https://firebasestorage.googleapis.com/v0/b/pipe-e7909.appspot.com/o/1fpipe?alt=media&token=075236d4-bcc7-4d79-a2a4-ac1ac992fe3f");
         yield return uwr.SendWebRequest();
 
         // Get an asset from the bundle and instantiate it.
@@ -51,8 +51,9 @@ public class Load1Fpipe : MonoBehaviour
             go1.transform.eulerAngles.y*0 + 90,
             go1.transform.eulerAngles.z*0
         );*/
-        go1.transform.parent = GameObject.Find("ModelManager").transform;
+        go1.transform.parent = GameObject.Find("1F").transform;
         go1.transform.SetAsFirstSibling();
+        GameObject.Find("1F").transform.SetAsFirstSibling();
         Debug.Log("有轉啦");
         Getrender(go1);
 
@@ -77,6 +78,7 @@ public class Load1Fpipe : MonoBehaviour
         }*/
         text.text = ("生醫1F機電模型下載完畢");
         ModelMaganer.Loadobj = 2;
+        GameObject.Find("QRCODE").SendMessage("Ianhsu");
     }
     /*public void planeonoff()
     {
@@ -115,7 +117,15 @@ public class Load1Fpipe : MonoBehaviour
             }
             else
             {
-                child.gameObject.tag = "pipe";
+                if (child.name == "qrimage")
+                {
+                    child.gameObject.tag = "QR";
+                }
+                else 
+                {
+                child.gameObject.tag = "pipe"; 
+                }
+                
             }
             ADDtag(child.gameObject);
         }
@@ -268,16 +278,6 @@ public class Load1Fpipe : MonoBehaviour
             }
             if (objectt.gameObject.name != "qrimage")
             {
-                if (objectt.gameObject.name != "AC1F")
-                {
-                    if (objectt.gameObject.name != "pipe1F")
-                    {
-                        if (objectt.gameObject.name != "dpipe1F")
-                        {
-                            
-                                if (objectt.gameObject.name != "Fire1F")
-                                {
-                                    
                                         elementid = objectt.name.Split(stringSeparators, StringSplitOptions.None);
                                         objectt.name = elementid[1];
 
@@ -285,14 +285,6 @@ public class Load1Fpipe : MonoBehaviour
                                         Debug.Log("有嗎有嗎");
                                         pipename.Add(elementid[0]);
                                         pipenum.Add(elementid[1]);
-                                    
-                                }
-                            
-                        }
-                           
-                    }
-
-                }
             }
             SplitList(objectt.gameObject);
         }
@@ -304,56 +296,8 @@ public class Load1Fpipe : MonoBehaviour
             if (null == child)
                 continue;
             if (child.name != "qrimage")
-            {
-                if (child.gameObject.GetComponent<MeshRenderer>() != null)
-                {
-                    child.gameObject.transform.GetComponent<Renderer>().shadowCastingMode = ShadowCastingMode.Off;
-                    child.gameObject.GetComponent<MeshRenderer>().receiveShadows = false;
-                }
-                else
-                {
-                    child.gameObject.AddComponent<MeshRenderer>();
-                    child.gameObject.transform.GetComponent<Renderer>().shadowCastingMode = ShadowCastingMode.Off;
-                    child.gameObject.GetComponent<MeshRenderer>().receiveShadows = false;
-                }
-                if (child.name == "AC1F")
-                    foreach (Transform childin in child.transform)
-                    {
-                        if (childin.gameObject.GetComponent<MeshRenderer>() != null)
-                        {
-                            childin.gameObject.GetComponent<MeshRenderer>().material = Resources.Load<Material>("PP");
-                        }
-                    }
-                else if (child.gameObject.name == "pipe1F")
-                {
-                    foreach (Transform childin in child.transform)
-                    {
-                        if (childin.gameObject.GetComponent<MeshRenderer>() != null)
-                        {
-                            childin.gameObject.GetComponent<MeshRenderer>().material = Resources.Load<Material>("bluepipe");
-                        }
-                    }
-                }
-                else if (child.gameObject.name == "dpipe1F")
-                {
-                    foreach (Transform childin in child.transform)
-                    {
-                        if (childin.gameObject.GetComponent<MeshRenderer>() != null)
-                        {
-                            childin.gameObject.GetComponent<MeshRenderer>().material = Resources.Load<Material>("orangepipe");
-                        }
-                    }
-                }
-                else if (child.gameObject.name == "Fire1F")
-                {
-                    foreach (Transform childin in child.transform)
-                    {
-                        if (childin.gameObject.GetComponent<MeshRenderer>() != null)
-                        {
-                            childin.gameObject.GetComponent<MeshRenderer>().material = Resources.Load<Material>("red");
-                        }
-                    }
-                }
+            {    
+             child.gameObject.GetComponent<MeshRenderer>().material = Resources.Load<Material>("bluepipe");       
             }
             Getrender(child.gameObject);
         }
@@ -363,8 +307,6 @@ public class Load1Fpipe : MonoBehaviour
         {
             if (null == child)
                 return;
-
-
         }
 
 

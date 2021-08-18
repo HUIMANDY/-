@@ -66,8 +66,8 @@ public class QRauto : MonoBehaviour
     public void Ianhsu()
     {
          
-        GameObject a = GameObject.Find("ModelManager").transform.GetChild(0).gameObject;
-        QRimage = GameObject.Find("ModelManager").transform.GetChild(0).GetChild(0).gameObject;
+        GameObject a = GameObject.Find("ModelManager").transform.GetChild(0).GetChild(0).gameObject;
+        QRimage = GameObject.Find("ModelManager").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         Debug.Log("a=" + a.name);
         //Box = Resources.Load("po1") as GameObject;
         //Box1 = Resources.Load("po2") as GameObject;
@@ -295,7 +295,7 @@ public class QRauto : MonoBehaviour
         GameObject ModelBox = new GameObject();
         ModelBox.transform.position = JetController.QRpose;
         Debug.Log(PointC.transform.position + "," + PointD.transform.position);
-        GameObject BIM = GameObject.Find("ModelManager").transform.GetChild(0).gameObject;
+        GameObject BIM = GameObject.Find("ModelManager").transform.GetChild(0).GetChild(0).gameObject;
         BIM.transform.parent = ModelBox.transform;
         BIM.transform.position = BIM.transform.position + Vba;
         Vector3 bdcrossac = Vector3.Cross(Vbd, Vac);
@@ -309,7 +309,7 @@ public class QRauto : MonoBehaviour
         {
             ModelBox.transform.eulerAngles = new Vector3(ModelBox.transform.eulerAngles.x, ModelBox.transform.eulerAngles.y - angle, ModelBox.transform.eulerAngles.z);
         }
-        BIM.transform.parent = GameObject.Find("ModelManager").transform;
+        BIM.transform.parent = GameObject.Find("ModelManager").transform.GetChild(0);
         BIM.transform.SetAsFirstSibling();
         Debug.Log(PointC.transform.position + "," + PointD.transform.position);
         GameObject QRRRR = BIM.transform.Find("qrimage").gameObject;
