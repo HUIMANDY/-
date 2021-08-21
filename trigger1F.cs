@@ -4,77 +4,40 @@ using UnityEngine;
 
 public class trigger1F : MonoBehaviour
 {
-    public int i = 1;
+    public int ii = 1;
     public GameObject triggerObj;
+    public GameObject Fmenu;
+    public GameObject QRmenu;
+    public GameObject MDDD;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         triggerObj = GameObject.Find("triggerObj1f");
+        MDDD = GameObject.Find("MenuModelTools");
+        Fmenu = MDDD.gameObject.transform.Find("1Fdownload").gameObject;
+        QRmenu= MDDD.gameObject.transform.Find("subQR").gameObject;
     }
-    public void triggering()
+    public void triggering()  //控制面板開關 BOOLING值
     {
-        if (i == 1)
+        if (ii == 1)
         {
-            triggerObj.SendMessage("getbuttomdown");
-            i++;
+            Debug.Log("i=1");
+            Fmenu.SetActive(true);
+            QRmenu.SetActive(false);
+            ii++;
             print(2);
         }
-        else if (i == 2)
+        else if (ii == 2)
         {
-            closevis(GameObject.Find("1Fpipe(Clone)").gameObject);
-            i++;
-            print(3);
-        }
-        else if (i == 3)
-        {
-            openvis(GameObject.Find("1Fpipe(Clone)").gameObject);
-            i = 2;
-            print(2);
-        }
-
-    }
-    public void closevis(GameObject model)
-    {
-        foreach (Transform child in model.transform)
-        {
-            if (null == child)
-                continue;
-            if (child.gameObject.GetComponent<MeshRenderer>())
-            {
-                child.gameObject.GetComponent<MeshRenderer>().enabled = false;
-            }
-            else if (child.gameObject.GetComponent<SpriteRenderer>())
-            {
-                child.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            }
-
-            closevis(child.gameObject);
-
+            Fmenu.SetActive(false);
+            QRmenu.SetActive(true);
+            ii = 1;
         }
     }
-    public void openvis(GameObject model)
-    {
-        model.transform.SetAsFirstSibling();
-        foreach (Transform child in model.transform)
-        {
-            if (null == child)
-                continue;
-            if (child.gameObject.GetComponent<MeshRenderer>())
-            {
-                child.gameObject.GetComponent<MeshRenderer>().enabled = true;
-            }
-            else if (child.gameObject.GetComponent<SpriteRenderer>())
-            {
-                child.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-            }
 
-            openvis(child.gameObject);
-
-        }
-    }
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
